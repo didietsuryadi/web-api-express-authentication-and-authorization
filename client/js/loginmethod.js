@@ -3,7 +3,9 @@ var app = new Vue({
       data: {
         username: '',
         password: '',
-        email: ''
+        email: '',
+        usernameattr: '',
+        users:[]
       },
       methods: {
         login: function (e) {
@@ -19,9 +21,10 @@ var app = new Vue({
               console.log(data);
               if(data.token){
                 localStorage.setItem('token', data.token)
-                window.location.href = 'http://127.0.0.1:8080/dashboard.html'
+                app.usernameattr = data.username
+                window.location.href = 'http://127.0.0.1:8080/home.html'
               }else{
-                alert(data.message)
+                alert("no authorize")
               }
               app.resetButton()
             }
@@ -45,6 +48,34 @@ var app = new Vue({
             }
           })
       },
+      logout: function () {
+        localStorage.removeItem('token')
+        window.location.href = 'http://127.0.0.1:8080/index.html'
+      },
+      getData: function () {
+        $.ajax({
+          url: "http://localhost:3000/user",
+          beforeSend: function(request) {
+            request.setRequestHeader("token", localStorage.getItem("token"));
+          },
+          type: 'get',
+          success: function(result) {
+            app.users = result
+          }
+        });
+      },
+      getUser: function () {
+        $.ajax({
+          url: "http://localhost:3000/userOnline",
+          beforeSend: function(request) {
+            request.setRequestHeader("token", localStorage.getItem("token"));
+          },
+          type: 'get',
+          success: function(result) {
+            app.usernameattr = result.username
+          }
+        });
+      },
       resetButton: function() {
         app.username = ''
         app.password = ''
@@ -52,3 +83,5 @@ var app = new Vue({
       }
     }
 })
+
+app.getData()

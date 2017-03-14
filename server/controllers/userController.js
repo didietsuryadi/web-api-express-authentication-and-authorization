@@ -1,6 +1,7 @@
 const User = require('../models/user.js');
 var hash = require('password-hash');
 const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 module.exports = {
 
@@ -47,11 +48,16 @@ module.exports = {
       res.send("no authorization")
     }else{
       if (jwt.verify(req.headers.token, process.env.SECRET)) {
+        // var decoded = jwt_decode(req.headers.token)
+        // req.user = decoded
         next()
       }else {
         res.send("expired token")
       }
     }
+  },
+  getUser: function (req,res) {
+    res.send(req.user)
   }
 
 }

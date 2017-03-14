@@ -7,13 +7,34 @@
 
   </head>
   <body>
-    <div class="container center">
+    <div id="root" class="container center">
       <div class="jumbotron" background="http://www.planwallpaper.com/static/images/background-image-1.jpg">
         <h1>Hello</h1>
-        <p>Welcome to CMS</p>
-        <p><a class="btn btn-primary btn-lg" href="http://127.0.0.1:8080/login.html" role="button">Login Here !</a></p>
+        <p>Selamat Datang {{usernameattr}}</p>
+        <p><a class="btn btn-primary btn-lg" href="#" v-on:click="logout" role="button">Login Out</a></p>
       </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="data in users">
+            <th></th>
+            <td>{{data.username}}</td>
+            <td>{{data.email}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <script src="js/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="js/loginmethod.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>

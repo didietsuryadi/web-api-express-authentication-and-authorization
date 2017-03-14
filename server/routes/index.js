@@ -10,6 +10,8 @@ router.post('/register', userController.register);
 
 router.get('/user', userController.verify, userController.getData)
 
+router.get('/userOnline', userController.verify, userController.getUser)
+
 
 
 module.exports = router;
